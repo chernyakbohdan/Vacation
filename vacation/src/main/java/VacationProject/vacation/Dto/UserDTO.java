@@ -8,11 +8,12 @@ import java.time.LocalDate;
 
 @Data
 public class UserDTO {
+    Long id;
     String email;
     String name;
-    String last_name;
     String appointment;
-    String work_experience;
+    String experience;
     String phone;
+    LocalDate dateOfBirth;
     int age;
 }

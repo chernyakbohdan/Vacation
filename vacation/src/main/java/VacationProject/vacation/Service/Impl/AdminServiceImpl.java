@@ -5,10 +5,8 @@ import VacationProject.vacation.Dto.Mapping.AdminMapping;
 import VacationProject.vacation.Entity.Admin;
 import VacationProject.vacation.Service.AdminService;
 import VacationProject.vacation.repository.AdminRepo;
-import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

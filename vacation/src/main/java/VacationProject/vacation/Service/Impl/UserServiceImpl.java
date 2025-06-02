@@ -16,8 +16,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepo repo;
     private final UserMapping Usermapping;
+    private final UserRepo repo;
 
     @Override
     public List<User> findAllUser() {
@@ -37,8 +37,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        return repo.save(user);
+    public Optional<UserDTO> findById(Long id) {
+        return repo.findUserById(id)
+                .map(Usermapping::userToUserDTO);
+    }
+
+    @Override
+    public UserDTO updateUser(UserDTO userDTO) {
+        User foundUser = repo.findById(userDTO.getId())
+                .orElseThrow(() -> new RuntimeException("User with id " + userDTO.getId() + " not found."));
+        foundUser.setAppointment(userDTO.getAppointment());
+        foundUser.setExperience(userDTO.getExperience());
+        foundUser.setDateOfBirth(userDTO.getDateOfBirth());
+        foundUser.setPhone(userDTO.getPhone());
+        foundUser.setAge(userDTO.getAge());
+        foundUser.setName(userDTO.getName());
+
+        User updatedEntity = repo.save(foundUser);
+        return Usermapping.userToUserDTO(updatedEntity);
     }
 
     @Override
@@ -50,5 +66,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> findDistinctAppointments(){
         return repo.findAllAppoint();
+    }
+
+    @Override
+    public Optional<User> login(String email, String password) {
+        Optional<User> user = repo.findUserByEmail(email);
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            return user;
+        }
+        return Optional.empty();
     }
 }

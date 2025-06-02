@@ -10,8 +10,9 @@ public interface UserService {
     List<User> findAllUser();
     User addUser(User user);
     Optional<UserDTO> findByEmail(String email);
-    User updateUser(User user);
+    Optional<UserDTO> findById(Long id);
+    UserDTO updateUser(UserDTO userDTO);
     void deleteUser(String email);
-
+    Optional<User> login(String email, String password);
     List<String> findDistinctAppointments();
 }

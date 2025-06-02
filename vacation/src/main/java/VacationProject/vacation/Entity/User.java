@@ -1,7 +1,10 @@
 package VacationProject.vacation.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -18,13 +21,21 @@ public class User {
     @Column(unique = true)
     private String password;
     private String name;
-    private String last_name;
     private String appointment;
-    private String work_experience;
+    private String experience;
     private String phone;
     private LocalDate dateOfBirth;
     @Transient
     private int age;
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() {
+
+    }
 
     public int getAge() {
         if (dateOfBirth == null) {

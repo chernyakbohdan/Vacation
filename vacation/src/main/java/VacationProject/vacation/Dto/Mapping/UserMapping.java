@@ -9,4 +9,5 @@ import org.springframework.context.annotation.Primary;
 @Primary
 public interface UserMapping {
     UserDTO userToUserDTO(User user);
+    User userDTOToUser(UserDTO userDTO);
 }

@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<User, Long> {
     Optional<User> findUserByEmail(String email);
 
+    Optional<User> findUserById(Long id);
+
     void deleteByEmail(String email);
 
     @Query(value = "SELECT DISTINCT appointment FROM user1", nativeQuery = true)
